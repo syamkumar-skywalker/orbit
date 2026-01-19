@@ -43,24 +43,32 @@ export function MeetingCountdown() {
                     />
 
                     {/* Hello Kitty (Left) */}
-                    <div className="absolute -left-1 -top-3 text-xl filter drop-shadow-sm transform -scale-x-100">
-                        🐱
+                    <div className="absolute -left-2 -top-5 filter drop-shadow-sm transform -scale-x-100 transition-transform hover:scale-110 hover:-scale-x-110 duration-300">
+                        <img
+                            src="/hk-plush.png"
+                            alt="Hello Kitty"
+                            className="w-10 h-10 object-contain"
+                        />
                     </div>
 
                     {/* Daniel Star (Right) */}
-                    <div className="absolute -right-1 -top-3 text-xl filter drop-shadow-sm">
-                        🐻
+                    <div className="absolute -right-2 -top-5 filter drop-shadow-sm transition-transform hover:scale-110 duration-300">
+                        <img
+                            src="/daniel-plush.png"
+                            alt="Daniel Star"
+                            className="w-10 h-10 object-contain"
+                        />
                     </div>
 
                     {/* The Floating Heart (follows progress) */}
                     <motion.div
-                        className="absolute -top-3"
+                        className="absolute -top-3 z-20"
                         initial={{ left: 0 }}
                         animate={{ left: `${progress}%` }}
                         transition={{ duration: 1.5, ease: "anticipate" }}
                     >
-                        <div className="relative -ml-3 bg-white rounded-full p-1 shadow-xs border border-pink-100">
-                            <Heart className="w-3 h-3 fill-primary text-primary animate-pulse" />
+                        <div className="relative -ml-3 bg-white rounded-full p-1.5 shadow-sm border border-pink-100">
+                            <Heart className="w-3.5 h-3.5 fill-primary text-primary animate-pulse" />
                         </div>
                     </motion.div>
                 </div>

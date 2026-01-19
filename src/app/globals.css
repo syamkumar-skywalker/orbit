@@ -46,18 +46,15 @@
   --radius-4xl: calc(var(--radius) + 16px);
 }
 
-/* Orbit "Liquid Plush" Theme (V3 - Hello Kitty Edition) */
+/* Orbit "Liquid Plush" Theme (V4 - Forced Softness) */
 :root {
   --radius: 1.5rem;
-  /* rounded-3xl (Super soft) */
+  /* rounded-3xl */
 
-  /* Base: Milky Creme */
+  /* DAY: Milky Creme & Soft Pink */
   --background: oklch(0.98 0.01 90);
-
-  /* Text: Soft Violet/Charcoal (High contrast but soft) */
   --foreground: oklch(0.35 0.04 310);
 
-  /* Cards: White with pink tint */
   --card: oklch(0.99 0.005 340);
   --card-foreground: oklch(0.35 0.04 310);
 
@@ -66,10 +63,12 @@
 
   /* Primary: Hello Kitty Red/Pink */
   --primary: oklch(0.75 0.18 350);
+  /* Hello Kitty Pink */
   --primary-foreground: oklch(0.99 0 0);
 
   /* Secondary: Daniel Star Blue/Lavender */
   --secondary: oklch(0.92 0.03 260);
+  /* Daniel Blue */
   --secondary-foreground: oklch(0.40 0.08 260);
 
   --muted: oklch(0.96 0.01 340);
@@ -86,13 +85,9 @@
   --ring: oklch(0.85 0.10 350);
 
   --chart-1: oklch(0.75 0.18 350);
-  /* Pink */
   --chart-2: oklch(0.70 0.15 260);
-  /* Lavender */
   --chart-3: oklch(0.85 0.10 90);
-  /* Yellow/Creme */
   --chart-4: oklch(0.60 0.15 200);
-  /* Sky */
   --chart-5: oklch(0.75 0.18 350);
 
   --sidebar: oklch(0.98 0.01 90);
@@ -105,53 +100,54 @@
   --sidebar-ring: oklch(0.85 0.10 350);
 }
 
-/* "Night Light" Theme (Soft Violet Dark Mode) */
+/* NIGHT: "Twilight Dream" (Soft Lavender/Rose - NO SUPER DARK COLORS) */
 .dark {
-  /* Soft Lavender Night */
-  --background: oklch(0.25 0.05 280);
-  --foreground: oklch(0.95 0.02 310);
+  /* Soft Lavender Twilight Background */
+  --background: oklch(0.30 0.06 280);
+  --foreground: oklch(0.98 0.01 320);
 
-  /* Deep Violet Cards */
-  --card: oklch(0.30 0.05 280);
-  --card-foreground: oklch(0.95 0.02 310);
+  /* Lighter Lavender/Rose Cards */
+  --card: oklch(0.35 0.06 280);
+  --card-foreground: oklch(0.98 0.01 320);
 
-  --popover: oklch(0.30 0.05 280);
-  --popover-foreground: oklch(0.95 0.02 310);
+  --popover: oklch(0.35 0.06 280);
+  --popover-foreground: oklch(0.98 0.01 320);
 
-  /* Neon Pink/Violet Primary */
-  --primary: oklch(0.80 0.15 340);
-  --primary-foreground: oklch(0.25 0.05 280);
+  /* Glowing Pink Primary */
+  --primary: oklch(0.85 0.12 340);
+  --primary-foreground: oklch(0.30 0.06 280);
 
-  --secondary: oklch(0.35 0.05 280);
-  --secondary-foreground: oklch(0.95 0.02 310);
+  /* Soft Periwinkle Secondary */
+  --secondary: oklch(0.40 0.06 260);
+  --secondary-foreground: oklch(0.98 0.01 320);
 
-  --muted: oklch(0.35 0.02 280);
-  --muted-foreground: oklch(0.75 0.02 280);
+  --muted: oklch(0.38 0.04 280);
+  --muted-foreground: oklch(0.80 0.02 280);
 
-  --accent: oklch(0.35 0.05 280);
-  --accent-foreground: oklch(0.95 0.02 310);
+  --accent: oklch(0.40 0.06 280);
+  --accent-foreground: oklch(0.98 0.01 320);
 
   --destructive: oklch(0.6 0.15 25);
-  --destructive-foreground: oklch(0.95 0 0);
+  --destructive-foreground: oklch(0.98 0 0);
 
-  --border: oklch(0.40 0.03 280);
-  --input: oklch(0.40 0.03 280);
-  --ring: oklch(0.60 0.15 340);
+  --border: oklch(0.45 0.04 280);
+  --input: oklch(0.45 0.04 280);
+  --ring: oklch(0.70 0.12 340);
 
-  --chart-1: oklch(0.80 0.15 340);
-  --chart-2: oklch(0.70 0.15 260);
-  --chart-3: oklch(0.85 0.10 90);
-  --chart-4: oklch(0.60 0.15 200);
-  --chart-5: oklch(0.80 0.15 350);
+  --chart-1: oklch(0.85 0.12 340);
+  --chart-2: oklch(0.75 0.12 260);
+  --chart-3: oklch(0.90 0.05 90);
+  --chart-4: oklch(0.70 0.10 200);
+  --chart-5: oklch(0.85 0.12 350);
 
-  --sidebar: oklch(0.25 0.05 280);
-  --sidebar-foreground: oklch(0.95 0.02 310);
-  --sidebar-primary: oklch(0.80 0.15 340);
-  --sidebar-primary-foreground: oklch(0.25 0.05 280);
-  --sidebar-accent: oklch(0.35 0.05 280);
-  --sidebar-accent-foreground: oklch(0.95 0.02 310);
-  --sidebar-border: oklch(0.40 0.03 280);
-  --sidebar-ring: oklch(0.60 0.15 340);
+  --sidebar: oklch(0.30 0.06 280);
+  --sidebar-foreground: oklch(0.98 0.01 320);
+  --sidebar-primary: oklch(0.85 0.12 340);
+  --sidebar-primary-foreground: oklch(0.30 0.06 280);
+  --sidebar-accent: oklch(0.40 0.06 280);
+  --sidebar-accent-foreground: oklch(0.98 0.01 320);
+  --sidebar-border: oklch(0.45 0.04 280);
+  --sidebar-ring: oklch(0.70 0.12 340);
 }
 
 @layer base {
