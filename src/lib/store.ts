@@ -1,7 +1,7 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 
-export type WidgetType = 'checkin' | 'note' | 'availability' | 'ping' | 'timer' | 'photo' | 'tools'
+export type WidgetType = 'checkin' | 'note' | 'availability' | 'ping' | 'timer' | 'photo' | 'tools' | 'meeting'
 
 interface WidgetConfig {
     id: WidgetType
@@ -18,6 +18,7 @@ interface WidgetStore {
 }
 
 const defaultWidgets: WidgetConfig[] = [
+    { id: 'meeting', label: 'Days Until Meet', visible: true },
     { id: 'checkin', label: 'Daily Check-in', visible: true },
     { id: 'note', label: 'Cute Note', visible: true },
     { id: 'availability', label: 'Call Status', visible: true },
