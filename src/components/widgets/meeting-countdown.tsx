@@ -43,21 +43,25 @@ export function MeetingCountdown() {
                     />
 
                     {/* Hello Kitty (Left) */}
-                    <div className="absolute -left-2 -top-5 filter drop-shadow-sm transform -scale-x-100 transition-transform hover:scale-110 hover:-scale-x-110 duration-300">
-                        <img
-                            src="/hk-plush.png"
-                            alt="Hello Kitty"
-                            className="w-10 h-10 object-contain"
-                        />
+                    <div className="absolute -left-2 -top-5 filter drop-shadow-md z-20">
+                        <div className="w-12 h-12 bg-white rounded-full p-1 shadow-sm border border-secondary/20 overflow-hidden transform -scale-x-100 transition-transform hover:scale-110 hover:-scale-x-110 duration-300">
+                            <img
+                                src="/hk-plush.png"
+                                alt="Hello Kitty"
+                                className="w-full h-full object-cover scale-110"
+                            />
+                        </div>
                     </div>
 
                     {/* Daniel Star (Right) */}
-                    <div className="absolute -right-2 -top-5 filter drop-shadow-sm transition-transform hover:scale-110 duration-300">
-                        <img
-                            src="/daniel-plush.png"
-                            alt="Daniel Star"
-                            className="w-10 h-10 object-contain"
-                        />
+                    <div className="absolute -right-2 -top-5 filter drop-shadow-md z-20">
+                        <div className="w-12 h-12 bg-white rounded-full p-1 shadow-sm border border-secondary/20 overflow-hidden transition-transform hover:scale-110 duration-300">
+                            <img
+                                src="/daniel-plush.png"
+                                alt="Daniel Star"
+                                className="w-full h-full object-cover scale-110" // scale up slightly to hide any white borders if needed
+                            />
+                        </div>
                     </div>
 
                     {/* The Floating Heart (follows progress) */}
