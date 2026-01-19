@@ -34,19 +34,22 @@ export function DashboardGrid() {
     const { widgets, isEditMode, toggleEditMode, toggleWidget } = useWidgetStore()
     const visibleWidgets = widgets.filter(w => w.visible)
 
+    // Apple-style spring physics
+    const springTransition = { type: "spring", stiffness: 400, damping: 30 } as any
+
     return (
-        <div className="space-y-4">
-            <div className="flex items-center justify-between">
-                <h2 className="text-sm font-medium text-muted-foreground uppercase tracking-widest pl-1">
+        <div className="space-y-4 max-w-5xl mx-auto">
+            <div className="flex items-center justify-between px-1">
+                <h2 className="text-sm font-semibold text-primary/80 uppercase tracking-widest">
                     {isEditMode ? "Design Your Space" : "Your Orbit"}
                 </h2>
                 <Button
                     variant={isEditMode ? "default" : "ghost"}
                     size="sm"
                     onClick={toggleEditMode}
-                    className="h-8 text-xs gap-2 rounded-full transition-all active:scale-95"
+                    className="h-8 text-xs gap-2 rounded-full transition-all active:scale-95 hover:bg-white/50"
                 >
-                    {isEditMode ? <Check className="w-3 h-3" /> : <Settings2 className="w-3 h-3" />}
+                    {isEditMode ? <Check className="w-3.5 h-3.5" /> : <Settings2 className="w-3.5 h-3.5" />}
                     {isEditMode ? "Done" : "Customize"}
                 </Button>
             </div>
@@ -56,51 +59,59 @@ export function DashboardGrid() {
                     {isEditMode ? (
                         <motion.div
                             layout
-                            className="grid grid-cols-2 gap-3 p-4 border rounded-3xl bg-muted/30 border-dashed"
-                            initial={{ opacity: 0, scale: 0.95 }}
+                            className="grid grid-cols-2 md:grid-cols-4 gap-3 p-4 border-2 border-dashed border-primary/20 rounded-3xl bg-white/30 backdrop-blur-sm"
+                            initial={{ opacity: 0, scale: 0.98 }}
                             animate={{ opacity: 1, scale: 1 }}
-                            exit={{ opacity: 0, scale: 0.95 }}
+                            exit={{ opacity: 0, scale: 0.98 }}
+                            transition={springTransition}
                         >
                             {widgets.map((widget) => (
                                 <motion.div
                                     layout
                                     key={widget.id}
                                     onClick={() => toggleWidget(widget.id)}
+                                    whileHover={{ scale: 1.02 }}
                                     whileTap={{ scale: 0.95 }}
+                                    transition={springTransition}
                                     className={cn(
-                                        "p-4 rounded-2xl border cursor-pointer transition-colors flex items-center justify-between shadow-xs",
+                                        "aspect-square p-4 rounded-3xl cursor-pointer transition-all flex flex-col items-center justify-center gap-2 text-center relative overflow-hidden",
                                         widget.visible
-                                            ? "bg-white border-primary/20 text-primary shadow-sm"
-                                            : "bg-background/50 border-transparent text-muted-foreground hover:bg-white/50"
+                                            ? "bg-white shadow-sm ring-2 ring-primary ring-offset-2 ring-offset-background"
+                                            : "bg-white/40 hover:bg-white/60 text-muted-foreground border border-transparent"
                                     )}
                                 >
-                                    <span className="text-sm font-medium">{widget.label}</span>
                                     <div className={cn(
-                                        "w-5 h-5 rounded-full border flex items-center justify-center transition-colors",
-                                        widget.visible ? "bg-primary border-primary" : "border-muted-foreground/30"
+                                        "w-8 h-8 rounded-full flex items-center justify-center transition-all",
+                                        widget.visible ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground"
                                     )}>
-                                        {widget.visible && <Check className="w-3 h-3 text-primary-foreground" />}
+                                        {widget.visible ? <Check className="w-4 h-4" /> : <div className="w-2 h-2 rounded-full bg-current opacity-50" />}
                                     </div>
+                                    <span className="text-xs font-bold tracking-tight">{widget.label}</span>
                                 </motion.div>
                             ))}
                         </motion.div>
                     ) : (
-                        <motion.div layout className="grid grid-cols-2 gap-3">
+                        <motion.div
+                            layout
+                            className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 md:gap-4" // Responsive Grid: 2 cols mobile, 4 desktop
+                        >
                             {visibleWidgets.map((widget) => (
                                 <motion.div
                                     layout
                                     key={widget.id}
-                                    className="aspect-square h-40"
-                                    initial={{ opacity: 0, scale: 0.8 }}
+                                    className="aspect-square w-full h-full"
+                                    initial={{ opacity: 0, scale: 0.5 }}
                                     animate={{ opacity: 1, scale: 1 }}
-                                    exit={{ opacity: 0, scale: 0.8 }}
-                                    transition={{ type: "spring", stiffness: 300, damping: 25 }}
+                                    exit={{ opacity: 0, scale: 0.5 }}
+                                    whileHover={{ scale: 1.03, y: -2 }} // "Float" effect
+                                    whileTap={{ scale: 0.97 }} // "Squish" effect
+                                    transition={springTransition}
                                 >
                                     {widgetMap[widget.id]}
                                 </motion.div>
                             ))}
                             {visibleWidgets.length === 0 && (
-                                <div className="col-span-2 py-12 text-center text-muted-foreground text-sm border-2 border-dashed border-primary/10 rounded-3xl">
+                                <div className="col-span-2 md:col-span-4 py-16 text-center text-muted-foreground text-sm border-2 border-dashed border-primary/10 rounded-3xl bg-white/20">
                                     Your orbit is empty.<br />Tap "Customize" to add widgets.
                                 </div>
                             )}
