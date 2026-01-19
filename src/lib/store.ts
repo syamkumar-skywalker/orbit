@@ -43,7 +43,7 @@ export const useWidgetStore = create<WidgetStore>()(
             resetLayout: () => set({ widgets: defaultWidgets }),
         }),
         {
-            name: 'orbit-widget-storage-v5',
+            name: 'orbit-widget-storage-v6',
         }
     )
 )
