@@ -23,9 +23,7 @@ const defaultWidgets: WidgetConfig[] = [
     { id: 'note', label: 'Cute Note', visible: true },
     { id: 'availability', label: 'Call Status', visible: true },
     { id: 'ping', label: 'Gentle Ping', visible: true },
-    { id: 'timer', label: 'Countdown', visible: false },
     { id: 'photo', label: 'Photo Drop', visible: false },
-    { id: 'tools', label: 'Tools', visible: false },
 ]
 
 export const useWidgetStore = create<WidgetStore>()(
@@ -43,7 +41,7 @@ export const useWidgetStore = create<WidgetStore>()(
             resetLayout: () => set({ widgets: defaultWidgets }),
         }),
         {
-            name: 'orbit-widget-storage-v6',
+            name: 'orbit-widget-storage-v7',
         }
     )
 )

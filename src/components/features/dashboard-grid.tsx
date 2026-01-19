@@ -87,19 +87,21 @@ export function DashboardGrid() {
                     ) : (
                         <motion.div
                             layout
-                            className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3"
+                            className="grid grid-cols-2 lg:grid-cols-4 gap-4 w-full"
                         >
                             {visibleWidgets.map((widget) => (
                                 <motion.div
                                     layout
                                     key={widget.id}
-                                    className="aspect-square w-full h-full"
+                                    className="aspect-square w-full relative"
                                     initial={{ opacity: 0, scale: 0.8 }}
                                     animate={{ opacity: 1, scale: 1 }}
                                     exit={{ opacity: 0, scale: 0.8 }}
                                     transition={{ type: "spring", stiffness: 300, damping: 25 }}
                                 >
-                                    {widgetMap[widget.id]}
+                                    <div className="absolute inset-0">
+                                        {widgetMap[widget.id]}
+                                    </div>
                                 </motion.div>
                             ))}
                             {visibleWidgets.length === 0 && (
