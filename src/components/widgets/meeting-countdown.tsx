@@ -7,28 +7,56 @@ import { Heart, CalendarHeart } from "lucide-react"
 import { motion } from "framer-motion"
 
 export function MeetingCountdown() {
-    // Mock date - in real app would be selectable
-    const targetDate = new Date("2026-05-01")
+    // Persistent Date State
+    const [targetDateStr, setTargetDateStr] = React.useState<string>("2026-05-01")
+    const [isEditing, setIsEditing] = React.useState(false)
     const [daysLeft, setDaysLeft] = React.useState(0)
 
     React.useEffect(() => {
-        const today = new Date()
-        const diffTime = Math.abs(targetDate.getTime() - today.getTime())
-        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24))
-        setDaysLeft(diffDays)
+        const saved = localStorage.getItem('orbit-meeting-date')
+        if (saved) setTargetDateStr(saved)
     }, [])
+
+    React.useEffect(() => {
+        const target = new Date(targetDateStr)
+        const today = new Date()
+        const diffTime = target.getTime() - today.getTime()
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24))
+        setDaysLeft(diffDays) // Can be negative if passed
+    }, [targetDateStr])
+
+    const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setTargetDateStr(e.target.value)
+        localStorage.setItem('orbit-meeting-date', e.target.value)
+    }
 
     // Percentage for progress bar (assuming 100 days max for demo visual, or calculate based on set range)
     const progress = Math.max(0, Math.min(100, (100 - daysLeft)))
 
     return (
         <Card className="h-full flex flex-col p-4 border-muted hover:border-primary/30 transition-colors shadow-sm bg-card/50 overflow-hidden relative group">
-            <div className="flex items-center justify-between pb-4 z-10">
-                <h3 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground flex items-center gap-1">
+            <div className="flex items-center justify-between pb-4 z-10 w-full">
+                <h3 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground flex items-center gap-1 cursor-pointer hover:text-primary transition-colors" onClick={() => setIsEditing(!isEditing)}>
                     <CalendarHeart className="w-3 h-3 text-primary" />
-                    Until we meet
+                    {isEditing ? "Set Date" : "Until we meet"}
                 </h3>
-                <span className="text-xs font-bold text-primary bg-primary/10 px-2 py-0.5 rounded-full">{daysLeft} days</span>
+                {isEditing ? (
+                    <input
+                        type="date"
+                        value={targetDateStr}
+                        onChange={handleDateChange}
+                        className="text-[10px] bg-white/50 border rounded px-1 py-0.5 outline-none text-primary font-bold"
+                        onBlur={() => setIsEditing(false)}
+                        autoFocus
+                    />
+                ) : (
+                    <span
+                        onClick={() => setIsEditing(true)}
+                        className="text-xs font-bold text-primary bg-primary/10 px-2 py-0.5 rounded-full cursor-pointer hover:bg-primary/20 transition-colors"
+                    >
+                        {daysLeft > 0 ? `${daysLeft} days` : daysLeft === 0 ? "Today!" : "Met!"}
+                    </span>
+                )}
             </div>
 
             <div className="flex-1 flex flex-col justify-center gap-6 z-10">

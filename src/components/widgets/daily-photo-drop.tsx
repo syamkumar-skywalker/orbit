@@ -8,12 +8,19 @@ export function DailyPhotoDrop() {
     const [image, setImage] = React.useState<string | null>(null)
     const fileInputRef = React.useRef<HTMLInputElement>(null)
 
+    React.useEffect(() => {
+        const saved = localStorage.getItem('orbit-daily-photo')
+        if (saved) setImage(saved)
+    }, [])
+
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0]
         if (file) {
             const reader = new FileReader()
             reader.onloadend = () => {
-                setImage(reader.result as string)
+                const result = reader.result as string
+                setImage(result)
+                localStorage.setItem('orbit-daily-photo', result)
             }
             reader.readAsDataURL(file)
         }
@@ -22,6 +29,7 @@ export function DailyPhotoDrop() {
     const clearImage = (e: React.MouseEvent) => {
         e.stopPropagation()
         setImage(null)
+        localStorage.removeItem('orbit-daily-photo')
     }
 
     return (

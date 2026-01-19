@@ -8,6 +8,16 @@ import { Smile, Frown, Meh, CloudRain } from "lucide-react"
 export function DailyCheckIn() {
     const [selectedMood, setSelectedMood] = React.useState<string | null>(null)
 
+    React.useEffect(() => {
+        const saved = localStorage.getItem('orbit-daily-mood')
+        if (saved) setSelectedMood(saved)
+    }, [])
+
+    const handleSelectMood = (id: string) => {
+        setSelectedMood(id)
+        localStorage.setItem('orbit-daily-mood', id)
+    }
+
     const moods = [
         { id: "happy", icon: Smile, label: "Good" },
         { id: "meh", icon: Meh, label: "Okay" },
@@ -25,10 +35,10 @@ export function DailyCheckIn() {
                     <Button
                         key={m.id}
                         variant="ghost"
-                        onClick={() => setSelectedMood(m.id)}
+                        onClick={() => handleSelectMood(m.id)}
                         className={`h-full flex-col gap-1 rounded-xl transition-all ${selectedMood === m.id
-                                ? "bg-primary/10 text-primary ring-1 ring-primary/20"
-                                : "bg-muted/30 hover:bg-muted text-muted-foreground hover:text-foreground"
+                            ? "bg-primary/10 text-primary ring-1 ring-primary/20"
+                            : "bg-muted/30 hover:bg-muted text-muted-foreground hover:text-foreground"
                             }`}
                     >
                         <m.icon className="w-5 h-5" strokeWidth={1.5} />
