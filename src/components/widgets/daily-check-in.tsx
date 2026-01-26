@@ -4,18 +4,31 @@ import * as React from "react"
 import { Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Smile, Frown, Meh, CloudRain } from "lucide-react"
+import { useOrbitData } from "@/hooks/use-orbit-data"
 
 export function DailyCheckIn() {
+    const { todayCheckIn, actions, loading } = useOrbitData()
+    const { saveCheckIn } = actions
+
+    // Optimistic local state
     const [selectedMood, setSelectedMood] = React.useState<string | null>(null)
 
+    // Sync with DB data
     React.useEffect(() => {
-        const saved = localStorage.getItem('orbit-daily-mood')
-        if (saved) setSelectedMood(saved)
-    }, [])
+        if (todayCheckIn) {
+            setSelectedMood(todayCheckIn.mood)
+        } else {
+            // Fallback for visual continuity if not yet loaded or no today check-in
+            const saved = localStorage.getItem('orbit-daily-mood')
+            // Only use local if no DB data (or optimistic logic needed)
+            if (saved && !todayCheckIn) setSelectedMood(saved)
+        }
+    }, [todayCheckIn])
 
-    const handleSelectMood = (id: string) => {
+    const handleSelectMood = async (id: string) => {
         setSelectedMood(id)
         localStorage.setItem('orbit-daily-mood', id)
+        await saveCheckIn(id)
     }
 
     const moods = [
@@ -29,8 +42,11 @@ export function DailyCheckIn() {
         <Card className="h-full flex flex-col justify-between p-4 border-muted hover:border-sidebar-primary/20 transition-colors shadow-sm bg-card/50">
             <div className="flex items-center justify-between pb-2">
                 <h3 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Pulse Check</h3>
+                {todayCheckIn && (
+                    <div className="h-1.5 w-1.5 rounded-full bg-green-500" title="Checked in today" />
+                )}
             </div>
-            <div className="grid grid-cols-2 gap-2 h-full">
+            <div className={`grid grid-cols-2 gap-2 h-full ${loading ? 'opacity-50 pointer-events-none' : ''}`}>
                 {moods.map((m) => (
                     <Button
                         key={m.id}
