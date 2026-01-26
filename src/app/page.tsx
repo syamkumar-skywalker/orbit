@@ -7,7 +7,7 @@ import { SchedulePreview } from "@/components/features/schedule-preview"
 
 export default function Dashboard() {
   return (
-    <div className="container mx-auto max-w-md p-4 space-y-6 pb-20">
+    <div className="container mx-auto max-w-5xl p-4 space-y-6 pb-20">
       {/* Top Section: Widget Grid */}
       <section className="space-y-4">
         <h2 className="sr-only">Quick Actions</h2>
